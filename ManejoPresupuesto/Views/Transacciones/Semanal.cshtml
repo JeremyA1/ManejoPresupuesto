@@ -1,0 +1,69 @@
+﻿@model ReporteSemanalViewModel
+@{
+    ViewData["Title"] = "Reporte Semanal";
+
+    string FormatearFecha(DateTime fecha)
+    {
+        return fecha.ToString("MM.dd");
+    }
+
+    var resumenMontos = new ResumenMontoViewModel
+    {
+        Gastos = Model.Gastos,
+        Ingresos = Model.Ingresos,
+        Total = Model.Total
+    };
+
+}
+
+<partial name="_Submenu" model="@SubMenuTransacciones.Semanal" />
+
+<partial name="_NavegarPorMeses" model="@Model.FechaReferencia" />
+
+<partial name="_ResumenMontos" model="@resumenMontos" />
+
+
+<table class="table transacciones-tabla transacciones-tabla-semanal">
+    <thead>
+        <tr>
+            <th>Semana</th>
+            <th class="text-end">Ingresos</th>
+            <th class="text-end">Gastos</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (!Model.TransaccionesPorSemana.Any())
+        {
+            <tr>
+                <td colspan="3" class="transacciones-vacio">No hay transacciones para mostrar.</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var semana in Model.TransaccionesPorSemana)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Index"
+                           asp-route-año="@Model.FechaReferencia.Year"
+                           asp-route-mes="@Model.FechaReferencia.Month"
+                           style="text-decoration: none">
+
+                            @FormatearFecha(semana.FechaInicio) ~
+                            @FormatearFecha(semana.FechaFin)
+                        </a>
+                    </td>
+
+                    <td class="text-end activo">
+                        @semana.Ingresos.ToString("N2")
+                    </td>
+
+                    <td class="text-end pasivo">
+                        @semana.Gastos.ToString("N2")
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

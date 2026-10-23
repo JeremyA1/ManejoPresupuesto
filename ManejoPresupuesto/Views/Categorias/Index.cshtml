@@ -1,0 +1,74 @@
+﻿@model PaginacionRespuesta<Categoria>
+@{
+    ViewData["Title"] = "Categorias";
+
+}
+
+<section class="categorias-page">
+    <h1 class="page-heading">Categorias</h1>
+    <h5 class="page-description">La categoria nos permite indicar en que gastamos nuestro dinero, 
+        tambien, de donde provienen nuestros ingresos
+    </h5>
+    
+    <h2>Cantidad de categorias: @Model.CantidadTotalRecords - Cantidad de Paginas: @Model.CantidadTotalDePaginas</h2>
+
+    <a asp-action="Crear" class="btn btn-primary btn-soft mb-3">Crear nuevo</a>
+
+
+    <div class="row">
+            <label>Cantidad de Registros a mostrar:</label>
+            <div class="mb-3 col-auto">
+            <select asp-for="RecordsPorPagina"
+                    id="cantidadRecordsPorPagina"
+                    class="form-select">
+                    <option>3</option>
+                    <option>5</option>
+                    <option>10</option>
+                    <option>25</option>
+                </select>
+            </div>
+    </div>
+
+    <partial name="_Paginacion"/>
+
+
+    <div class="categorias-tabla-contenedor">
+        <table class="table app-table categorias-tabla">
+            <thead>
+                <tr>
+                    <th>Acciones</th>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var categoria in Model.Elementos)
+                {
+                    <tr>
+                        <td>
+                            <a class="btn btn-primary" asp-action="Editar" asp-route-id="@categoria.Id">Editar</a>
+                            <a class="btn btn-danger" asp-action="Borrar" asp-route-id="@categoria.Id">Borrar</a>
+                        </td>
+
+                        <td>
+                            @categoria.Nombre
+                        </td>
+                        <td>
+                            @categoria.TipoOperacionId.ToString()
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        $("#cantidadRecordsPorPagina").on("change", function () {
+            const recordsPorPagina = $(this).val();
+            location.href = `/categorias/?pagina=1&recordsPorPagina=${recordsPorPagina}`;
+        });
+    </script>
+}

@@ -1,0 +1,37 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Compilaciones y comprobaciones locales
+[Bb]in/
+[Oo]bj/
+artifacts/
+.diagnostics/
+.build-*/
+TestResults/
+*.log
+
+# Configuracion local y credenciales
+**/appsettings.Development.json
+**/appsettings.*.local.json
+**/secrets.json
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.pem
+*.key
+
+# Bases de datos locales y respaldos
+*.mdf
+*.ldf
+*.bak
+*.db
+
+# Archivos del sistema
+Thumbs.db
+.DS_Store

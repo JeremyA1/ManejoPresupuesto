@@ -1,0 +1,30 @@
+@model TipoCuenta
+
+@{
+    ViewData["Title"] = "Crear Tipo Cuenta";
+}
+
+<section class="page-card form-card">
+<h1 class="page-heading">Crear tipo de cuenta</h1>
+<p class="page-description">
+    El tipo de cuenta indica cómo podemos agrupar cuentas.
+    Ejemplos: préstamos, tarjetas de crédito, etc.
+</p>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-controller="TiposCuentas" asp-action="Crear" method="post">
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label"></label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-soft">Enviar</button>
+    <a class="btn btn-outline-secondary btn-soft" asp-action="Index">Cancelar</a>
+</form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
